@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>for循环执行顺序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	// for循环执行顺序，先进行条件判断，再执行函数体。
+	// 初次判断对象为初始化的变量，再次则执行i++后进行判断，若i++后值符合条件则执行函数体，反之不执行。
+	for (var i = 0; i < 10; i++) {
+	  console.log(i)
+	}
+	console.log(i,'i')
+</script>
