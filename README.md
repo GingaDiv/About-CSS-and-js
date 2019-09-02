@@ -1,2 +1,2 @@
 ﻿# base-notes
-js/css笔记
+基础笔记
