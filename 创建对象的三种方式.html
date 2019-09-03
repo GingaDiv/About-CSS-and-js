@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	// 第一种
+	let firstObj = new Object();
+	console.log(firstObj,'firstObj');
+	// 第二种,es6新增，真正意义上的空对象，需在方法内传参，如需和new出来的对象一样有 __proto__ 可传 Object.prototype
+	let secondObj = Object.create(null); // Object.create(Object.prototype)
+	console.log(secondObj,'secondObj');
+	// 第三种
+	let thirdObj = {};
+	console.log(thirdObj,'thirdObj');
+</script>
