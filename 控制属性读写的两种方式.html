@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	// 第一种,get set方法
+	var o = {
+		_age: 10,
+		get age() {
+			return o._age;
+		},
+		// set age(value) {
+		// 	o._age = value;
+		// }
+	};
+	// o.age = 16;
+	console.log(o.age);
+
+	// 第二种,writable属性
+	var x = {
+		name: 'Alice'
+	};
+	Object.defineProperty(x,'name',{writable: false,configurable: false}); // configurable属性控制是否可再次设置
+	// Object.defineProperty(x,'name',{writable: true});
+	x.name = 'Rose';
+	console.log(x.name);
+
+	// 扩展: enumerable属性控制是否可枚举
+	var obj = {
+		a: 1,
+		b: 2,
+		c: 3
+	};
+	console.log(Object.getOwnPropertyDescriptor(obj,'b')); // Object.getOwnPropertyDescriptor()方法返回自有属性对应的属性描述符
+	Object.defineProperty(obj,'b',{enumerable: false});
+	console.log(Object.getOwnPropertyDescriptor(obj,'b'));
+	for(let value in obj) {
+		console.log(value);
+	}
+
+	// 扩展： undefined在ES5中作了修改,是只读变量,而在ES3中可读可写，修改后可防止低端浏览器对undefined作出改变
+</script> 
