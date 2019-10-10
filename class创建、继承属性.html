@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	class Dad {
+		constructor(name,age) {
+			this.name = name;
+			this.age = age;
+		}
+		talk() {
+			console.log('共有属性')
+		}
+	};
+	var c1 = new Dad("Jo",3);
+	console.log(c1);
+	c1.talk();
+
+	class Children extends Dad {
+		constructor() {
+			super(); // 若子类中存在构造函数则必须使用super()，在this之前
+			this.doll = "ha";
+		}
+		run() {
+			console.log("hhhhh")
+		}
+	}
+	var c2 = new Children();
+	console.log(c2);
+</script>
