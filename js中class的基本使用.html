@@ -8,28 +8,44 @@
 </body>
 </html>
 <script type="text/javascript">
+
+	// class的基本使用及属性封装
 	class Dad {
 		constructor(name,age) {
 			this.name = name;
 			this.age = age;
+			this._sex = "男";
 		}
 		talk() {
 			console.log('共有属性')
 		}
+		get sex() {
+			return this._sex;
+		}
+		set sex(value) {
+			this._sex = value;
+		}
 	};
+
 	var c1 = new Dad("Jo",3);
 	console.log(c1);
 	c1.talk();
+	console.log(c1.sex);
+	c1.sex = "女";
+	console.log(c1.sex);
 
+	// class的继承
 	class Children extends Dad {
 		constructor() {
 			super(); // 若子类中存在构造函数则必须使用super()，在this之前
 			this.doll = "ha";
 		}
 		run() {
-			console.log("hhhhh")
+			console.log("hhhhh");
 		}
 	}
+
 	var c2 = new Children();
 	console.log(c2);
+
 </script>
