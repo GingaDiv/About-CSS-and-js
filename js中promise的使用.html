@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	// promise的出现为了解决function调用的回调地狱，然而promise的反复调用也存在promise地狱
+	function a(name) {
+		return new Promise(function(resolve,reject) {
+			name?resolve(name):reject("errorA");
+		})
+	}
+	function b(data) {
+		return new Promise(function(resolve,reject) {
+			data?resolve(data+"b"):reject("errorB")
+		})
+	}
+	function c(data) {
+		if(data === 1) {
+			return Promise.resolve(data+"c");
+		} else {
+			return Promise.reject("errorC")
+		}
+	} 
+	function errorC(err) {
+		console.log(err+"functionB")
+	}
+	function d(data) {
+		console.log(data);
+	}
+	function errorD(err) {
+		console.log(err+"functionC")
+	}
+	a("a").then(b).then(c,errorC).then(d,errorD);
+</script>
