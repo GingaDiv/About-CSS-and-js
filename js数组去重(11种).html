@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+
+	let arr = [1,2,3,NaN,4,2,5,"null",[],"undefined",[1],{a: 1,b: 2},undefined,null,1,5,"5",[],["1"],undefined,null,"aaa","b","aaaa","aaa",NaN,{a: 1,b: 2},"NaN",{a: 6,c: 2},{},{},[1]];
+
+	// 第一种：es6新增 new Set() 缺点：不判断Object、Array
+	{
+		let result = Array.from(new Set(arr)); // 或 let result1 = [...new Set(arr)];
+		console.log(result,"set去重");
+	}
+
+	// 第二种：indexOf去重 缺点：1.不去重NaN；2.不判断Object、Array
+	{
+		let arr1 = [];
+		for(let i=0;i<arr.length;i++) {
+			if(arr1.indexOf(arr[i]) === -1) {
+				arr1.push(arr[i]);
+			}
+		}
+		console.log(arr1,"indexOf去重");
+	}
+
+	// 第三种：includes去重 缺点：不判断Object、Array
+	{
+		let arr1 = [];
+		for(let i=0;i<arr.length;i++) {
+			if(!arr1.includes(arr[i])) {
+				arr1.push(arr[i]);
+			}
+		}
+		console.log(arr1,"includes去重");
+	}
+
+	// 第四种：reduce()+includes()去重 缺点：不判断Object、Array
+	{	
+		function unique(){
+		    return arr.reduce((prev,cur) => {
+		    	return prev.includes(cur) ? prev : [...prev,cur]
+		    },[]);
+		}
+		console.log(unique(),"reduce()+includes()去重");
+	}
+
+
+	// 第五种：splice去重 缺点：1.不去重NaN；2.不判断Object、Array
+	{
+		let [...arr1] = arr;
+		for(let i=0;i<arr1.length;i++) {
+			for(let j=i+1;j<arr1.length;j++) {
+				if(arr1[i] === arr1[j]) {
+					arr1.splice(j,1);
+					j--;
+				}
+			}
+		}
+		console.log(arr1,"splice去重");
+	}
+
+	// 第六种：filter去重 缺点：1.删掉了NaN；2.不判断Object、Array
+	{
+		function unique() {
+			return arr.filter((item,index,arr) => {
+				return arr.indexOf(item,0) === index;
+			})
+		}
+		console.log(unique(),"filter去重");
+	}
+
+	// 第七种：map数据结构去重 缺点：不判断Object、Array
+	{
+		let map = new Map();
+		let arr1 = [];
+		for(let i=0;i<arr.length;i++) {
+			if(map.has(arr[i])) {
+				map.set(arr[i],true);
+			} else {
+				map.set(arr[i],false);
+				arr1.push(arr[i]);
+			}
+		}
+		console.log(arr1,"map数据结构去重");
+	}
+
+	// 第八种：hasOwnProperty()去重 缺点：所有Object类型只保留一个，其余都被去重
+	{
+		let [...arr1] = arr;
+		arr1 = arr1.sort();
+		let obj = {};
+		function unique() {
+			return arr.filter(item => {
+				return obj.hasOwnProperty(typeof item + item)? false: (obj[typeof item + item] = true);
+			})
+		}
+		console.log(unique(),"hasOwnProperty去重");
+	}
+
+	// 第九种：递归去重 缺点：1.不去重NaN；2.不判断Object、Array；3.sort()方法排序将所有属性先转为string再进行字母排序本身存在一定问题
+	{
+		let [...arr1] = arr;
+		arr1 = arr1.sort();
+		function loop(index) {
+			if(index >= 1) {
+				if(arr1[index] === arr1[index-1]) {
+					arr1.splice(index,1);
+				}
+				loop(index-1)
+			}
+		}
+		loop(arr1.length-1);
+		console.log(arr1,"递归去重");
+	}
+
+	// 第十种：sort去重 缺点：1.不去重NaN；2.不判断Object、Array；3.sort()方法排序将所有属性先转为string再进行字母排序本身存在一定问题
+	{
+		let [...arr1] = arr;
+		arr1 = arr1.sort()
+		let arr2 = [];
+		for(let i=0;i<arr1.length;i++) {
+			if(arr1[i] !== arr1[i-1]) {
+				arr2.push(arr1[i]);
+			}
+		}
+		console.log(arr2,"sort去重");
+	}
+
+	// 第十一种：对象下标去重 缺点：1.不区分不同类型；2.不辨别object,会自动被toString()
+	{
+		let result = [];
+		let obj = {};
+		for(let i=0;i<arr.length;i++) {
+			obj[arr[i]] = true;
+		}
+		for(let key in obj) {
+			result.push(key);
+		}
+		console.log(result,"对象下标去重");
+	}
+</script>
