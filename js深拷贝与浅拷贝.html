@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+
+	// 示例一：浅拷贝
+	let arr = [1,2,{a:1,b:2},[3,5]];
+	let arr1 = arr;
+	arr1[0] = 6;
+	console.log(arr,arr1,"示例一");
+
+	// 示例二：浅拷贝只针对于复杂的object类型
+	let a = 1;
+	let b = a;
+	b = 5;
+	console.log(a,b,"示例二");
+
+	// 示例三：深拷贝，是拷贝对象各个层级的属性。下面是实现方式
+	{
+		// 方式一：递归深拷贝
+		let array = [1,2,{a:1,b:2},[3,5]];
+		function deepClone(obj) {
+			let objClone = Array.isArray(obj)?[]:{};
+			if(obj && typeof obj === "object") {
+				for(let key in obj) {
+					if(obj.hasOwnProperty(key)) {
+						if(typeof obj[key] === "object") {
+							objClone[key] = deepClone(obj[key]);
+						} else {
+							objClone[key] = obj[key];
+						}
+					}
+				}
+				return objClone;
+			}
+		}
+		let array1 = deepClone(array);
+		array1[0] = 6;
+		array1[2].a = "32";
+		array1[3][0] = "haha";
+		console.log(array,array1,"递归深拷贝");
+	}
+	{
+		// 方式二：JSON对象的parse和stringify深拷贝
+		let array = [1,2,{a:1,b:2},[3,5]];
+		let array1 = JSON.parse(JSON.stringify(array));
+		array1[0] = 12;
+		array1[2].b = "88";
+		array1[3][0] = "hehe";
+		console.log(array,array1,"json对象深拷贝");
+	}
+</script>
